@@ -1,0 +1,43 @@
+account_id: ""
+actions:
+  wilson/valenftines-twitter-bot:
+    runtime: v1
+    sources: actions
+    specs:
+      mint:
+        description: This is just an example, but you can publish this action.
+        function: example:mintFn
+        trigger:
+          type: transaction
+          transaction:
+            status:
+              - mined
+            filters:
+              - network: 1
+                # If put at the top, contract will apply to all fields
+                # that need it but don't have it.
+                contract:
+                  address: 0xe6bDDCA6e786De76C5AfD47c6913e696798281F2
+                function:
+                  name: mint
+                eventEmitted:
+                  name: Transfer
+      transfer:
+        description: This is just an example, but you can publish this action.
+        function: example:mintFn
+        trigger:
+          type: transaction
+          transaction:
+            status:
+              - mined
+            filters:
+              - network: 1
+                # If put at the top, contract will apply to all fields
+                # that need it but don't have it.
+                contract:
+                  address: 0xe6bDDCA6e786De76C5AfD47c6913e696798281F2
+                eventEmitted:
+                  name: Transfer
+project_slug: ""
+        
+        

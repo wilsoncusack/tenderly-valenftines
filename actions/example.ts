@@ -1,0 +1,46 @@
+import {
+	ActionFn,
+	Context,
+	Event,
+	TransactionEvent
+} from '@tenderly/actions'
+import { ethers } from 'ethers';
+
+const abi = [{"inputs":[{"internalType":"address","name":"_owner","type":"address"},{"internalType":"uint256","name":"_mintStartTimestamp","type":"uint256"},{"internalType":"uint256","name":"_mintEndTimestamp","type":"uint256"},{"internalType":"bytes32","name":"_merkleRoot","type":"bytes32"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"_valentineInfo","outputs":[{"internalType":"uint8","name":"h1","type":"uint8"},{"internalType":"uint8","name":"h2","type":"uint8"},{"internalType":"uint8","name":"h3","type":"uint8"},{"internalType":"uint24","name":"requitedTokenId","type":"uint24"},{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"from","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"id","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"gtapEarlyMintClaimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint8","name":"h1","type":"uint8"},{"internalType":"uint8","name":"h2","type":"uint8"},{"internalType":"uint8","name":"h3","type":"uint8"},{"internalType":"bytes32[]","name":"merkleProof","type":"bytes32[]"}],"name":"gtapMint","outputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint8","name":"heartType","type":"uint8"}],"name":"heartMintCostWei","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"matchOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"merkleRoot","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint8","name":"h1","type":"uint8"},{"internalType":"uint8","name":"h2","type":"uint8"},{"internalType":"uint8","name":"h3","type":"uint8"}],"name":"mint","outputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"mintEndTimestamp","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"mintStartTimestamp","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"payOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"id","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"svgImage","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"id","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"valentineInfo","outputs":[{"components":[{"internalType":"uint8","name":"h1","type":"uint8"},{"internalType":"uint8","name":"h2","type":"uint8"},{"internalType":"uint8","name":"h3","type":"uint8"},{"internalType":"uint24","name":"requitedTokenId","type":"uint24"},{"internalType":"address","name":"to","type":"address"},{"internalType":"address","name":"from","type":"address"}],"internalType":"struct Valentine","name":"","type":"tuple"}],"stateMutability":"view","type":"function"}]
+
+export interface TxEvent extends TransactionEvent {
+    logs: { topics: string[]; data: string; }[]
+}
+
+export const mintFn: ActionFn = async (context: Context, event: Event) => {
+	let blockEvent = event as TxEvent
+	// console.log(blockEvent)
+	let ens = await resolveEnsOrFormatAddress(blockEvent.from)
+	console.log(ens)
+	let iface = new ethers.utils.Interface(abi)
+	let e = iface.parseLog(blockEvent.logs[0])
+	const id = e.args.id;
+	const from = await resolveEnsOrFormatAddress(e.args.from)
+	const to = await resolveEnsOrFormatAddress(e.args.to)
+	console.log(`from ${from}`)
+	console.log(`to ${to}`)
+
+	const _provider = new ethers.providers.JsonRpcProvider(await context.secrets.get('jsonRPCURI'));
+
+	const valenftines = new ethers.Contract(
+		'0xe6bDDCA6e786De76C5AfD47c6913e696798281F2',
+		abi,
+		_provider
+	  );
+	const x = await valenftines.valentineInfo(id)
+	console.log(x)
+	
+}
+
+
+async function resolveEnsOrFormatAddress(address: string) {
+	return (
+	  (await ethers.getDefaultProvider().lookupAddress(address)) ||
+	  `${address.substr(0, 4)}...${address.substr(address.length - 4)}`
+	);
+  }
